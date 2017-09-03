@@ -1,6 +1,19 @@
 # target
 holydemo
 
+#[source insight]
+*.IAB
+*.IAD
+*.IMB
+*.IMD
+*.PFI
+*.PO
+*.PR
+*.PRI
+*.PS
+*.WK3
+*.SearchResults
+
 # pycharm
 *.idea
 
