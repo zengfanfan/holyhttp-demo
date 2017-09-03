@@ -1,0 +1,6 @@
+---- EPOLLOUT Matches (6 in 1 files) ----
+Server.c (d:\work\holyhttp\server):    evt.events |= read ? EPOLLIN : EPOLLOUT;
+Server.c (d:\work\holyhttp\server):    evt.events |= read ? EPOLLIN : EPOLLOUT;
+Server.c (d:\work\holyhttp\server):    evt.events |= read ? EPOLLIN : EPOLLOUT;
+Server.c (d:\work\holyhttp\server):            } else if (evts[i].events & EPOLLOUT) {// writable
+Server.c (d:\work\holyhttp\server):                DEBUG("fd %d EPOLLOUT(%x)", fd, EPOLLOUT);
