@@ -6,7 +6,6 @@ export STRIP := strip
 TARGET := holydemo
 OBJS := main.o
 SUBDIRS := 
-LIBPATH := /lib
 
 CFLAGS-${_DEBUG_} += -g -ggdb
 CFLAGS-y += -I${TOP}
