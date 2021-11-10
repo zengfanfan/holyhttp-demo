@@ -5,12 +5,18 @@
     <title>@title</title>
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body style="padding: 30px 20%;">
 <form method="post" action="/logout" class="jumbotron col-xs-12">
-  <h1>Welcome @page.name</h1>
+  <h3>Welcome @page.name</h3>
     <p>This is a home page of <b>@name</b></p>
     <button class="btn btn-danger btn-lg">Logout</button>
 </form>
-
+<div style="font-size: large;">
+  link: <a href="/test">/test</a><br>
+  link: <a href="/render/string">/render/string</a><br>
+  link: <a href="/render/file">/render/file</a><br>
+  link: <a href="/upload">upload</a><br>
+  link: <a href="/download">download</a><br>
+</div>
 </body>
 </html>

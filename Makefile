@@ -3,8 +3,7 @@ export _DEBUG_ := y
 
 TARGET := holydemo
 OBJS := main.o
-SUBDIRS := 
-LIBFILE := ${TOP}/../holyhttp/libholyhttp.so
+SUBDIRS :=
 
 CFLAGS-${_DEBUG_} += -g -ggdb
 CFLAGS-y += -I${TOP}
@@ -21,12 +20,9 @@ include ${TOP}/common.mk
 all: cplib subs ${TARGET}
 
 ${TARGET}: ${OBJS} ${SUBOBJS}
-	${CC} -o $@ $^ ${CFLAGS}
+	${CC} -o $@ $^ ${CFLAGS} -lholyhttp -L$(TOP)/lib
 	${STRIP} $@
 
 cplib:
-	@-cp -f ${LIBFILE} /lib
-	@-cp -f ${LIBFILE} /usr/lib
-	@-cp -f ${LIBFILE} /lib64
-	@-cp -f ${LIBFILE} /usr/lib64
-
+	@-cp -f ${TOP}/../holyhttp/libholyhttp.so $(TOP)/lib
+	@-cp -f ${TOP}/../holyhttp/holyhttp.h $(TOP)/lib

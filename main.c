@@ -14,7 +14,7 @@
 #define UPFILENAME1 "file1"
 #define UPFILENAME2 "file2"
 
-int fetch_file(char *filename, void **data, unsigned *len);
+int holy_fetch_file(char *filename, void **data, unsigned *len);
 
 static unsigned get_now_us()
 {
@@ -54,19 +54,19 @@ static void cgi_index(holyreq_t *req)
 static void cgi_login(holyreq_t *req)
 {
     char *name, *pwd;
-    
+
     if (req->method != POST_METHOD) {
         req->send_frender(req, "login.html", "");
         return;
     }
-    
+
     name = req->get_arg(req, "username");
     pwd = req->get_arg(req, "password");
     if (!name || !pwd) {
         DEBUG("username and password are both needed");
         return;
     }
-    
+
     if (strcmp(name, "holy") != 0 || strcmp(pwd, "http") != 0) {
         req->redirect(req, "/login");
         return;
@@ -85,7 +85,7 @@ static void cgi_logout(holyreq_t *req)
 static void cgi_download(holyreq_t *req)
 {
     char *txt = "This is a test file!\r\n^_^";
-    req->response(req, OK, txt, strlen(txt), "text", 0, NULL, NULL, "download.txt");
+    req->response(req, OK, txt, strlen(txt), "text", 0, 0, NULL, NULL, "download.txt");
 }
 
 static void cgi_file1(holyreq_t *req)
@@ -94,15 +94,15 @@ static void cgi_file1(holyreq_t *req)
     void *data;
     unsigned len;
 
-    if (!fetch_file(file, &data, &len)) {
+    if (!holy_fetch_file(file, &data, &len)) {
         req->send_status(req, INSUFFICIENT_STORAGE);
         return;
     }
 
     DEBUG("GO");
 
-    req->response(req, OK, data, len, "application/octet-stream", 0, NULL, NULL, NULL);
-    
+    req->response(req, OK, data, len, "application/octet-stream", 0, 0, NULL, NULL, NULL);
+
     free(data);
 }
 
@@ -113,7 +113,7 @@ static int write_file(char *filename, void *data, unsigned len)
         DEBUG("Failed to open %s, %s.", filename, strerror(errno));
         return 0;
     }
-    
+
     if (fwrite(data, len, 1, fp) < 0) {
         DEBUG("Failed to write %s, %s.", filename, strerror(errno));
         fclose(fp);
@@ -129,11 +129,11 @@ static void cgi_upload(holyreq_t *req)
     char *file1 = UPFILENAME1, *file2 = UPFILENAME2;
     void *data1, *data2;
     unsigned dlen1, dlen2;
-    
+
     if (req->method != POST_METHOD) {
         goto exit;
     }
-    
+
     if (!req->get_bin_arg(req, "file1", &data1, &dlen1)) {
         DEBUG("file1 is null");
         goto exit;
